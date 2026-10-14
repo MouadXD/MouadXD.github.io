@@ -1,0 +1,114 @@
+
+{{ define "main" }}
+<div class="projects-page">
+
+  <header class="projects-hero">
+    <div class="projects-hero-copy">
+      <p class="projects-eyebrow">
+        <span class="projects-status-dot"></span>
+        ENGINEERING / SECURITY / BUILDING
+      </p>
+
+      <h1>Projects<span class="projects-accent">.</span></h1>
+
+      <p class="projects-intro">
+        A collection of tools, experiments, and practical work
+        exploring cybersecurity, software, and systems.
+      </p>
+
+      <div class="projects-hero-bottom">
+        <span>BUILD WITH PURPOSE.</span>
+        <span>LEARN BY DOING.</span>
+      </div>
+    </div>
+
+    <div class="projects-hero-art" aria-hidden="true">
+      <div class="projects-art-frame">
+        <div class="projects-art-top">
+          <span></span><span></span><span></span>
+          <small>project.log</small>
+        </div>
+        <div class="projects-art-code">
+          <p><span>01</span> <b>build</b>( )</p>
+          <p><span>02</span> learn( )</p>
+          <p><span>03</span> <b>improve</b>( )</p>
+          <p class="projects-art-cursor">_</p>
+        </div>
+      </div>
+      <span class="projects-art-caption">IDEAS → IMPLEMENTATION</span>
+    </div>
+  </header>
+
+  <section class="projects-collection">
+    <div class="projects-section-heading">
+      <div>
+        <p class="projects-kicker">SELECTED WORK</p>
+        <h2>Things I've been building</h2>
+        <p class="projects-section-description">
+          Each project is an opportunity to solve a problem and learn something useful.
+        </p>
+      </div>
+      <span class="projects-count">
+        {{ printf "%02d" (len .RegularPages) }}
+        <span>PROJECTS</span>
+      </span>
+    </div>
+
+    <div class="projects-grid">
+      {{ $pages := sort .RegularPages "Date" "desc" }}
+
+      {{ range $index, $page := $pages }}
+      <article class="project-card" onclick="window.location.href='{{ $page.RelPermalink }}'" role="link" tabindex="0" onkeydown="if(event.key==='Enter'){window.location.href='{{ $page.RelPermalink }}'}">
+
+        <div class="project-card-top">
+          <span class="project-number">{{ printf "P-%02d" (add $index 1) }}</span>
+          {{ with $page.Params.status }}
+          <span class="project-status">{{ . }}</span>
+          {{ end }}
+        </div>
+
+        <h3>{{ $page.Title }}</h3>
+
+        <p class="project-description">
+          {{ with $page.Description }}
+            {{ . }}
+          {{ else }}
+            {{ $page.Summary | plainify | htmlUnescape }}
+          {{ end }}
+        </p>
+
+        {{ with $page.Params.stack }}
+        <div class="project-stack">
+          {{ range . }}
+          <span>{{ . }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+
+        <div class="project-card-footer">
+          <a href="{{ $page.RelPermalink }}">EXPLORE PROJECT <span>↗</span></a>
+          {{ with $page.Params.github }}
+          <a href="{{ . }}" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>
+          {{ end }}
+        </div>
+
+      </article>
+      {{ else }}
+      <div class="projects-empty">
+        <span class="projects-empty-mark">~/projects</span>
+        <h3>Something is in the works.</h3>
+        <p>Projects will appear here as they take shape.</p>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <footer class="projects-footer">
+    <span>THINK.</span>
+    <span>BUILD.</span>
+    <span>TEST.</span>
+    <span class="projects-accent">REPEAT ↗</span>
+  </footer>
+
+</div>
+{{ end }}

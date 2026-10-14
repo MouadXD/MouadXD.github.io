@@ -1,0 +1,66 @@
+baseURL: "https://mouadxd.github.io/"
+languageCode: "en-us"
+title: "MouadXD"
+theme: "PaperMod"
+enableRobotsTXT: true
+
+params:
+  env: production
+  author: "Mouad Boufas"
+  description: "Mouad Boufas' offensive security portfolio: penetration testing, web security, and practical cybersecurity projects."
+  defaultTheme: dark
+  disableThemeToggle: true
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowCodeCopyButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowToc: true
+  ShowRssButtonInSectionTermList: true
+  ShowWordCount: false
+  hideFooter: false
+
+  assets:
+    disableHLJS: false
+
+  profileMode:
+  enabled: false
+
+  label:
+    text: "mb"
+
+homeInfoParams:
+  Title: "Mouad Boufas"
+  Content: >-
+    Offensive Security | Penetration Testing
+
+    Cybersecurity master's student focused on web security,
+    practical penetration testing, and security projects.
+    buttons:
+      - name: Writeups
+        url: writeups/
+      - name: Projects
+        url: projects/
+      - name: About
+        url: about/
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/MouadXD"
+    - name: linkedin
+      url: "https://www.linkedin.com/"
+
+menu:
+  main:
+    - identifier: writeups
+      name: Writeups
+      url: /writeups/
+      weight: 10
+    - identifier: projects
+      name: Projects
+      url: /projects/
+      weight: 20
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30

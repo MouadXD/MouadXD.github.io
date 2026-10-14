@@ -1,0 +1,120 @@
+
+{{ define "main" }}
+<div class="writeups-page">
+
+  <header class="writeups-hero">
+    <div class="writeups-hero-copy">
+      <p class="writeups-eyebrow">
+        <span class="writeups-status-dot"></span>
+        SECURITY RESEARCH / FIELD NOTES
+      </p>
+
+      <h1>Writeups<span class="writeups-accent">.</span></h1>
+
+      <p class="writeups-intro">
+        Breaking down vulnerabilities, understanding how they work,
+        and documenting the techniques used to identify and fix them.
+      </p>
+
+      <div class="writeups-hero-bottom">
+        <span class="writeups-index">01 — HANDS-ON LEARNING</span>
+        <span class="writeups-index">WEB · NETWORK · SYSTEMS</span>
+      </div>
+    </div>
+
+    <div class="writeups-hero-art" aria-hidden="true">
+      <div class="writeups-orbit writeups-orbit-one"></div>
+      <div class="writeups-orbit writeups-orbit-two"></div>
+      <div class="writeups-orbit writeups-orbit-three"></div>
+      <div class="writeups-core">
+        <span>~/</span>
+        <span class="writeups-core-cursor">_</span>
+      </div>
+      <span class="writeups-art-label">ANALYZE / TEST / LEARN</span>
+    </div>
+  </header>
+
+  <section class="writeups-collection">
+    <div class="writeups-section-heading">
+      <div>
+        <p class="writeups-kicker">THE KNOWLEDGE BASE</p>
+        <h2>Labs &amp; investigations</h2>
+        <p class="writeups-section-description">
+          Practical notes, attack analysis, and lessons learned.
+        </p>
+      </div>
+
+      <span class="writeups-count">
+        {{ printf "%02d" (len .RegularPages) }}
+        <span> ARTICLES</span>
+      </span>
+    </div>
+
+    <div class="writeup-grid">
+      {{ $pages := sort .RegularPages "Date" "desc" }}
+
+      {{ range $index, $page := $pages }}
+      <a class="writeup-card" href="{{ $page.RelPermalink }}">
+
+        <div class="writeup-card-top">
+          <span class="writeup-number">
+            {{ printf "%02d" (add $index 1) }}
+          </span>
+          <span class="writeup-arrow" aria-hidden="true">↗</span>
+        </div>
+
+        <div class="writeup-meta">
+          <span class="writeup-category">
+            {{ with $page.Params.categories }}
+              {{ index . 0 }}
+            {{ else }}
+              Security Research
+            {{ end }}
+          </span>
+          <time datetime="{{ $page.Date.Format "2006-01-02" }}">
+            {{ $page.Date.Format "Jan 02, 2006" }}
+          </time>
+        </div>
+
+        <h3>{{ $page.Title }}</h3>
+
+        <p class="writeup-description">
+          {{ with $page.Description }}
+            {{ . }}
+          {{ else }}
+            {{ $page.Summary | plainify | htmlUnescape }}
+          {{ end }}
+        </p>
+
+        {{ with $page.Params.tags }}
+        <div class="writeup-tags">
+          {{ range first 3 . }}
+          <span>{{ . }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+
+        <div class="writeup-card-footer">
+          <span>READ WRITEUP</span>
+          <span class="writeup-footer-arrow">→</span>
+        </div>
+
+      </a>
+      {{ else }}
+      <div class="writeups-empty">
+        <span class="writeups-empty-icon">⌘</span>
+        <h3>The lab is getting ready.</h3>
+        <p>New security writeups will appear here as they are published.</p>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <footer class="writeups-footer">
+    <span>DOCUMENT THE PROCESS.</span>
+    <span>UNDERSTAND THE WHY.</span>
+    <span>KEEP LEARNING <span class="writeups-accent">↗</span></span>
+  </footer>
+
+</div>
+{{ end }}

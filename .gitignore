@@ -1,0 +1,16 @@
+# Hugo generated files
+/public/
+/resources/
+.hugo_build.lock
+.hugo_build/
+
+# Local backups
+/backup-content/
+*.bak
+*.backup
+
+# Local environment and editor files
+.env
+.env.*
+!.env.example
+.DS_Store
