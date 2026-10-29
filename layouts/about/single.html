@@ -1,104 +1,31 @@
-
 {{ define "main" }}
-<main class="about-page">
+<div class="about-min">
 
-  <section class="about-hero">
-    <div class="about-kicker">
-      <span class="about-kicker-line"></span>
-      A LITTLE ABOUT ME
-    </div>
+  <h1>About</h1>
 
-    <h1>Curious by nature.<br>
-      <span>Technical by practice.</span>
-    </h1>
+  <p class="am-lead">
+    I'm Mouad, a cybersecurity master's student in Morocco, working toward
+    a career in penetration testing. I learn by doing: labs, projects, and
+    writing things down.
+  </p>
 
-    <p class="about-lead">
-      I'm Mouad, a cybersecurity student from Morocco focused on
-      offensive security and penetration testing.
-    </p>
+  <section class="am-section">
+    <h2>Focus</h2>
+    <ul class="am-list">
+      <li>Web application security</li>
+      <li>Network and system penetration testing</li>
+      <li>Linux, enumeration, and privilege escalation</li>
+    </ul>
   </section>
 
-  <section class="about-section">
-    <div class="about-section-label">
-      <span>01</span>
-      <span>WHAT DRIVES ME</span>
-    </div>
-
-    <div class="about-manifesto-content">
-      <h2>Understand the system.<br>
-        <span>Challenge its assumptions.</span>
-      </h2>
-      <p>
-        I enjoy figuring out how systems work, where their assumptions
-        break, and what a vulnerability actually makes possible.
-        I prefer hands-on learning: testing, troubleshooting, and
-        documenting what I discover rather than just collecting tools.
-      </p>
-    </div>
+  <section class="am-section">
+    <h2>Contact</h2>
+    <ul class="am-list am-contact">
+      <li><a href="https://github.com/MouadXD" target="_blank" rel="noopener noreferrer">GitHub &mdash; MouadXD</a></li>
+      <li><a href="https://www.linkedin.com/in/mouad-boufas/" target="_blank" rel="noopener noreferrer">LinkedIn &mdash; Mouad Boufas</a></li>
+      <li><a href="mailto:mouadboufas1090@gmail.com">Email &mdash; mouadboufas1090@gmail.com</a></li>
+    </ul>
   </section>
 
-  <section class="about-section">
-    <div class="about-section-label">
-      <span>02</span>
-      <span>MY FOCUS</span>
-    </div>
-
-    <div class="about-interest-grid">
-      <article class="about-interest">
-        <div class="about-interest-icon">&lt;/&gt;</div>
-        <h3>Web Security</h3>
-        <p>
-          Exploring application vulnerabilities, authentication,
-          access control, and API security.
-        </p>
-      </article>
-
-      <article class="about-interest">
-        <div class="about-interest-icon">$_</div>
-        <h3>Network & Systems</h3>
-        <p>
-          Practising enumeration, service analysis, Linux security,
-          and privilege escalation in labs.
-        </p>
-      </article>
-
-      <article class="about-interest">
-        <div class="about-interest-icon">{ }</div>
-        <h3>Practical Projects</h3>
-        <p>
-          Building and documenting projects that strengthen my
-          understanding of software and security.
-        </p>
-      </article>
-    </div>
-  </section>
-
-  <section class="about-contact">
-    <div class="about-contact-copy">
-      <span class="about-kicker">THE DIRECTION</span>
-      <h2>From hands-on practice<br>
-        to <span>offensive security.</span>
-      </h2>
-      <p>
-        I'm developing the practical skills to start my career in
-        penetration testing, with a long-term goal of growing into red
-        teaming. One lab, one project, and one lesson at a time.
-      </p>
-    </div>
-
-    <div class="about-contact-actions">
-      <a href="{{ "projects/" | relURL }}"
-         class="about-contact-primary">
-        Explore my work <span>↗</span>
-      </a>
-      <a href="https://github.com/MouadXD"
-         target="_blank" rel="noopener noreferrer"
-         class="about-contact-secondary">
-        GitHub profile <span>↗</span>
-      </a>
-    </div>
-  </section>
-
-</main>
+</div>
 {{ end }}
-
