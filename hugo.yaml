@@ -1,6 +1,6 @@
 baseURL: "https://mouadxd.github.io/"
 languageCode: "en-us"
-title: "Mouad Boufas"
+title: "MouadXD"
 theme: "PaperMod"
 enableRobotsTXT: true
 
@@ -8,12 +8,6 @@ params:
   env: production
   author: "Mouad Boufas"
   description: "Mouad Boufas' offensive security portfolio: penetration testing, web security, and practical cybersecurity projects."
-  images: ["og-image.png"]
-  schema:
-    publisherType: Person
-    sameAs:
-      - "https://github.com/MouadXD"
-      - "https://www.linkedin.com/in/mouad-boufas/"
   defaultTheme: dark
   disableThemeToggle: true
   ShowReadingTime: true
