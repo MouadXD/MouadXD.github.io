@@ -2907,6 +2907,47 @@ body:has(.portfolio-home) .home-info {
 }
 
 
+/* Large screens: keep headings from getting too big */
+@media (min-width: 1600px) {
+  .portfolio-home .hero h1 {
+    font-size: 64px;
+  }
+
+  .portfolio-home .hero h2 {
+    font-size: 24px;
+  }
+
+  .section-heading h2 {
+    font-size: 30px;
+  }
+
+  .about-hero > h1 {
+    font-size: 52px;
+  }
+
+  .about-manifesto-content h2,
+  .about-experience-content h2 {
+    font-size: 28px;
+  }
+
+  .about-contact h2 {
+    font-size: 32px;
+  }
+
+  .writeup-header h1 {
+    font-size: 40px;
+  }
+
+  .writeups-section-heading h2,
+  .projects-section-heading h2 {
+    font-size: 26px;
+  }
+
+  .project-article-header h1 {
+    font-size: 40px;
+  }
+}
+
 /* Homepage role heading */
 .portfolio-home .hero h2 .hero-role {
   color: var(--portfolio-green);
@@ -2937,6 +2978,66 @@ body:has(.portfolio-home) .home-info {
   }
 }
 
+
+/* ==========================================
+   SMALL SCREEN POLISH
+   ========================================== */
+
+@media (max-width: 480px) {
+  .main {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+  }
+
+  .header-nav {
+    padding: 10px 0;
+  }
+
+  .logo a {
+    font-size: 1.6rem;
+  }
+
+  #menu {
+    column-gap: 16px;
+  }
+
+  #menu a {
+    font-size: 12px;
+  }
+
+  .portfolio-home .hero {
+    padding: 56px 0 45px;
+  }
+
+  .portfolio-home .hero h1 {
+    font-size: 34px;
+  }
+
+  .portfolio-home .hero h2 {
+    font-size: 17px;
+  }
+
+  .hero-description {
+    font-size: 13.5px;
+  }
+
+  .hero-actions {
+    margin-top: 24px;
+  }
+
+  .hero-actions a {
+    flex: 1 1 100%;
+  }
+
+  .home-collection {
+    margin-top: 52px;
+  }
+
+  .portfolio-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
 
 /* ==========================================
    HOMEPAGE IMPROVEMENTS
@@ -3035,6 +3136,14 @@ body:has(.portfolio-home) .home-info {
 
 /* Mobile */
 @media (max-width: 600px) {
+  .portfolio-home .hero h1 {
+    font-size: 40px;
+  }
+
+  .portfolio-home .hero h2 {
+    font-size: 19px;
+  }
+
   .portfolio-home .hero-actions {
     gap: 10px;
     flex-wrap: wrap;

@@ -131,8 +131,79 @@
     var step = reduce ? 0 : 400;
 
     var staticLines = Array.prototype.slice.call(body.querySelectorAll(".ht-line"));
-    staticLines.forEach(function (l) { l.style.opacity = "0"; });
 
+    function store(key, val) {
+      try { sessionStorage.setItem(key, val); } catch (e) {}
+    }
+
+    function read(key) {
+      try { return sessionStorage.getItem(key); } catch (e) { return null; }
+    }
+
+    var cached = null;
+    try { cached = JSON.parse(read("heroGeo") || "null"); } catch (e) {}
+    var played = read("heroTermPlayed") === "1";
+
+    function geoLines(geo) {
+      var ip = (geo && geo.ip) ? geo.ip : "127.0.0.1 — wait, that's me";
+      var loc;
+      if (geo && (geo.city || geo.country)) {
+        loc = (geo.city && geo.country) ? geo.city + ", " + geo.country : (geo.city || geo.country);
+      } else {
+        loc = "behind 7 proxies (nice try)";
+      }
+      return [
+        '<span class="ht-prompt">$</span> <span class="ht-cmd">./trace_visitor.sh</span>',
+        "[+] scanning visitor... (relax, it's for the joke)",
+        "[+] ip: " + ip,
+        "[+] location: " + loc,
+        "[+] deploying 0days... just kidding.",
+        "[+] I only hack authorized labs. nice city btw<span class=\"ht-cursor\">█</span>"
+      ];
+    }
+
+    function append(html, instant, cb) {
+      var p = document.createElement("p");
+      p.className = "ht-line ht-out";
+      p.innerHTML = html;
+      p.style.opacity = instant ? "1" : "0";
+      body.appendChild(p);
+      if (instant) {
+        if (cb) cb();
+        return;
+      }
+      setTimeout(function () {
+        p.style.opacity = "1";
+        if (cb) cb();
+      }, step);
+    }
+
+    function revealLines(lines, instant) {
+      var idx = 0;
+      (function next() {
+        if (idx >= lines.length) return;
+        append(lines[idx], instant, function () {
+          idx++;
+          next();
+        });
+      })();
+    }
+
+    function showGeo(geo) {
+      var oldCursor = body.querySelector(".ht-cursor");
+      if (oldCursor) oldCursor.parentNode.removeChild(oldCursor);
+      revealLines(geoLines(geo), played);
+    }
+
+    // Already seen this session → render everything instantly from cache
+    if (played) {
+      staticLines.forEach(function (l) { l.style.opacity = "1"; });
+      showGeo(cached);
+      return;
+    }
+
+    // First visit: animate static lines, then run the trace
+    staticLines.forEach(function (l) { l.style.opacity = "0"; });
     var i = 0;
     var timer = setInterval(function () {
       if (i >= staticLines.length) {
@@ -144,40 +215,12 @@
       i++;
     }, step);
 
-    function append(html, cb) {
-      var p = document.createElement("p");
-      p.className = "ht-line ht-out";
-      p.innerHTML = html;
-      p.style.opacity = "0";
-      body.appendChild(p);
-      setTimeout(function () {
-        p.style.opacity = "1";
-        if (cb) cb();
-      }, step);
-    }
-
     function runTrace() {
-      var oldCursor = body.querySelector(".ht-cursor");
-      if (oldCursor) oldCursor.parentNode.removeChild(oldCursor);
-
-      var lines = [
-        '<span class="ht-prompt">$</span> <span class="ht-cmd">./trace_visitor.sh</span>',
-        "[+] scanning visitor... (relax, it's for the joke)",
-        "[+] ip: —",
-        "[+] location: —",
-        "[+] deploying 0days... just kidding.",
-        "[+] I only hack authorized labs. nice city btw<span class=\"ht-cursor\">█</span>"
-      ];
-
-      function revealAll() {
-        var idx = 0;
-        (function next() {
-          if (idx >= lines.length) return;
-          append(lines[idx], function () {
-            idx++;
-            next();
-          });
-        })();
+      // Reuse cached geo from earlier in the session if available
+      if (cached) {
+        store("heroTermPlayed", "1");
+        showGeo(cached);
+        return;
       }
 
       var urls = [
@@ -188,9 +231,8 @@
 
       function attempt(k) {
         if (k >= urls.length) {
-          lines[2] = "[+] ip: 127.0.0.1 — wait, that's me";
-          lines[3] = "[+] location: behind 7 proxies (nice try)";
-          revealAll();
+          store("heroTermPlayed", "1");
+          showGeo(null);
           return;
         }
         fetch(urls[k], { mode: "cors" })
@@ -200,9 +242,9 @@
             var city = d.city || d.cityName;
             var country = d.country_name || d.countryName || d.country;
             if (ip) {
-              lines[2] = "[+] ip: " + ip;
-              lines[3] = "[+] location: " + ((city && country) ? city + ", " + country : (country || city || "somewhere on earth"));
-              revealAll();
+              store("heroGeo", JSON.stringify({ ip: ip, city: city, country: country }));
+              store("heroTermPlayed", "1");
+              showGeo({ ip: ip, city: city, country: country });
             } else {
               attempt(k + 1);
             }
