@@ -64,3 +64,10 @@ menu:
       name: About
       url: /about/
       weight: 30
+    - identifier: pgp
+      name: PGP
+      title: PGP key
+      url: /pgp-key.asc
+      weight: 40
+      params:
+        target: "_blank"

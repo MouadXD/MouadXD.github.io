@@ -6,6 +6,7 @@
 
 # Local backups
 /backup-content/
+/backup-v1-2026-10-29/
 *.bak
 *.backup
 
