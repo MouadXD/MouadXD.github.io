@@ -52,6 +52,10 @@ homeInfoParams:
 
 menu:
   main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 5
     - identifier: writeups
       name: Writeups
       url: /writeups/
