@@ -127,90 +127,6 @@ body {
   text-decoration: none;
 }
 
-/* Hamburger toggle (mobile) */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 38px;
-  height: 38px;
-  padding: 9px;
-  border: 1px solid var(--portfolio-border);
-  border-radius: 5px;
-  background: none;
-  cursor: pointer;
-}
-
-.menu-toggle span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: var(--portfolio-green);
-  border-radius: 2px;
-  transition: transform 180ms ease, opacity 180ms ease;
-}
-
-@media (max-width: 760px) {
-  .menu-toggle {
-    display: flex;
-  }
-
-  .header-nav .logo {
-    flex: 1 1 auto;
-  }
-
-  .header-nav #menu {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    gap: 0;
-    margin-top: 12px;
-    padding: 0 0 4px;
-    border-top: 1px solid var(--portfolio-border);
-    white-space: normal;
-    overflow: visible;
-  }
-
-  .header-nav.nav-open #menu {
-    display: flex;
-  }
-
-  .header-nav #menu li {
-    width: 100%;
-  }
-
-  .header-nav #menu a {
-    display: block;
-    width: 100%;
-    padding: 13px 2px;
-    font-size: 13px;
-    border-bottom: 1px solid rgb(255 255 255 / 5%);
-  }
-
-  .header-nav #menu li:last-child a {
-    border-bottom: none;
-  }
-
-  .header-nav.nav-open .menu-toggle span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  .header-nav.nav-open .menu-toggle span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .header-nav.nav-open .menu-toggle span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .menu-toggle span {
-    transition: none;
-  }
-}
-
 /* Homepage shell */
 .portfolio-home {
   --wu-accent: #a3e6c1;
@@ -3069,12 +2985,12 @@ body:has(.portfolio-home) .home-info {
 
 @media (max-width: 480px) {
   .main {
-    padding-right: 16px !important;
-    padding-left: 16px !important;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
   }
 
   .header-nav {
-    padding: 10px 0;
+    padding: 10px 20px;
   }
 
   .logo a {
