@@ -282,7 +282,7 @@ body {
 .portfolio-home .hero {
   position: relative;
   overflow: hidden;
-  padding: 64px 0 76px;
+  padding: 112px 0 76px;
   border-bottom: 1px solid var(--portfolio-border);
 }
 
@@ -618,7 +618,7 @@ body:has(.portfolio-home) .home-info {
   }
 
   .portfolio-home .hero {
-    padding: 75px 0 55px;
+    padding: 95px 0 55px;
   }
 
   .portfolio-home .hero::after {
@@ -2965,7 +2965,7 @@ body:has(.portfolio-home) .home-info {
   }
 
   .portfolio-home .hero {
-    padding: 56px 0 45px;
+    padding: 80px 0 45px;
   }
 
   .portfolio-home .hero h1 {
