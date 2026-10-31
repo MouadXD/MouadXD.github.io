@@ -1900,6 +1900,66 @@ body:has(.portfolio-home) .home-info {
   color: var(--wa-accent);
 }
 
+/* Chain summary */
+
+.writeup-content h2#the-chain + ol {
+  margin: 26px 0 28px;
+  padding: 2px 0 0;
+  list-style: none;
+  counter-reset: chain;
+}
+
+.writeup-content h2#the-chain + ol > li {
+  position: relative;
+  min-height: 30px;
+  margin: 0;
+  padding: 0 0 26px 46px;
+}
+
+.writeup-content h2#the-chain + ol > li:last-child {
+  padding-bottom: 0;
+}
+
+.writeup-content h2#the-chain + ol > li::before {
+  counter-increment: chain;
+  content: counter(chain, decimal-leading-zero);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(163, 230, 193, 0.35);
+  border-radius: 50%;
+  background: rgba(163, 230, 193, 0.07);
+  color: var(--wa-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.writeup-content h2#the-chain + ol > li::after {
+  content: "";
+  position: absolute;
+  top: 34px;
+  bottom: 0;
+  left: 14px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(163, 230, 193, 0.3),
+    rgba(163, 230, 193, 0.03)
+  );
+}
+
+.writeup-content h2#the-chain + ol > li:last-child::after {
+  display: none;
+}
+
 .writeup-content blockquote {
   margin: 26px 0;
   padding: 15px 20px;
