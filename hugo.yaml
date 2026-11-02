@@ -4,6 +4,10 @@ title: "MouadXD"
 theme: "PaperMod"
 enableRobotsTXT: true
 
+services:
+  googleAnalytics:
+    ID: G-V3DMY9KLZY
+
 params:
   env: production
   author: "Mouad Boufas"
