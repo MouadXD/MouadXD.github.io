@@ -1,6 +1,6 @@
 baseURL: "https://mouadboufas.me/"
 languageCode: "en-us"
-title: "MouadXD"
+title: "Mouad Boufas | Offensive Security"
 theme: "PaperMod"
 enableRobotsTXT: true
 
@@ -11,7 +11,7 @@ services:
 params:
   env: production
   author: "Mouad Boufas"
-  description: "Mouad Boufas' offensive security portfolio: penetration testing, web security, and practical cybersecurity projects."
+  description: "Mouad Boufas is a cybersecurity master's student documenting penetration testing, web security research, and practical security projects."
   defaultTheme: dark
   disableThemeToggle: true
   ShowReadingTime: true
@@ -28,25 +28,18 @@ params:
     disableHLJS: false
 
   profileMode:
-  enabled: false
+    enabled: false
 
   label:
-    text: "mb"
+    text: "m0ad"
 
 homeInfoParams:
   Title: "Mouad Boufas"
   Content: >-
-    Offensive Security | Penetration Testing
+      Cybersecurity master's student focused on offensive security,
+      web application penetration testing, and hands-on security research.
 
-    Cybersecurity master's student focused on web security,
-    practical penetration testing, and security projects.
-    buttons:
-      - name: Writeups
-        url: writeups/
-      - name: Projects
-        url: projects/
-      - name: About
-        url: about/
+      I document practical labs, vulnerabilities, and projects as I learn.
 
   socialIcons:
     - name: github
