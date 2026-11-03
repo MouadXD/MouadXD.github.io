@@ -50,23 +50,23 @@ homeInfoParams:
 menu:
   main:
     - identifier: home
-      name: "[Home]"
+      name: Home
       url: /
       weight: 5
     - identifier: writeups
-      name: "[Writeups]"
+      name: Writeups
       url: /writeups/
       weight: 10
     - identifier: projects
-      name: "[Projects]"
+      name: Projects
       url: /projects/
       weight: 20
     - identifier: about
-      name: "[About]"
+      name: About
       url: /about/
       weight: 30
     - identifier: pgp
-      name: "[PGP]"
+      name: PGP
       title: PGP key
       url: /pgp-key.asc
       weight: 40
