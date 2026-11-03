@@ -26,6 +26,7 @@ params:
 
   assets:
     disableHLJS: false
+    favicon: "/favicon.png"
 
   profileMode:
     enabled: false
