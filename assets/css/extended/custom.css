@@ -1572,6 +1572,11 @@ body:has(.portfolio-home) .home-info {
   color: var(--secondary);
   font-size: 13px;
   line-height: 1.8;
+  min-height: 5.4em;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .writeup-tags {

