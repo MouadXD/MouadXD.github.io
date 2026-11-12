@@ -16,8 +16,6 @@ categories:
 
 Hey. In this writeup, I’ll walk through a security assessment I did on an e-Pharmacy app I built.
 
-![Kid waving hello](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXM5Nm5seHU1eGVsdTF4emtwODFuYnRoMGc0a20yYWRqMzA5cWMyNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sqOEIezldeGGlwUTWl/giphy.gif)
-
 This project started with a simple question: how secure is an application when you look at it from an attacker’s perspective?
 
 I used an online pharmacy application I had built with React, Node.js, Express, and MongoDB as the target. It includes customer and admin functionality, JWT authentication, Google OAuth, and payment integrations.
